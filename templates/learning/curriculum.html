@@ -1,0 +1,51 @@
+{% extends "learning/layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="body-content-wrapper">
+    <div class="curriculum-container">
+        <aside class="lesson-sidebar">
+            <h3 class="sidebar-title">📚 Nội dung giáo trình</h3>
+            <ul class="lesson-list">
+                {% for lesson in lessons %}
+                <li class="lesson-item {% if lesson.is_locked %}locked{% endif %}" 
+                    data-locked="{{ lesson.is_locked|yesno:'true,false' }}"
+                    onclick="loadLesson({{ lesson.id }}, this)">
+                    
+                    <div class="lesson-item-header">
+                        <span class="badge {{ lesson.level }}">Cấp độ {{ lesson.level }}</span>
+                        {% if lesson.is_locked %}
+                            <span class="status-icon">🔒</span>
+                        {% else %}
+                            <span class="status-icon open">📖</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="lesson-item-info">
+                        <strong class="lesson-title">{{ lesson.title }}</strong>
+                        {% if lesson.is_locked %}
+                            <small class="lock-text">Cần đạt Level {{ lesson.level }}</small>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <main class="lesson-main-view">
+            <div id="curriculum-placeholder" class="placeholder-content">
+                <div class="placeholder-icon">📖</div>
+                <h3>Chọn một bài học từ danh sách bên trái để bắt đầu</h3>
+            </div>
+
+            <div id="curriculum-display" style="display: none;">
+                <h1 id="active-lesson-title"></h1>
+                <div class="lesson-content-divider"></div>
+                <div id="active-lesson-body" class="lesson-pro"></div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="{% static 'learning/js/app.js' %}"></script>
+{% endblock %}

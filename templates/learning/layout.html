@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Học Tập Cá Nhân Hóa{% endblock %}</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'learning/css/style.css' %}">
+    <script src="{% static 'learning/js/htmx.min.js' %}"></script>
+    
+    {% block extra_head %}{% endblock %}
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{% url 'learning:home' %}" class="logo">LEARN<span>APP</span></a>
+            
+            <div class="nav-menu">
+        {% if user.is_authenticated %}
+        <div class="user-menu-container">
+            <button class="user-profile-btn" onclick="toggleUserMenu(event)">
+                <div class="user-avatar">👤</div>
+                <span class="user-name">{{ user.username }}</span>
+                <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+
+            <div class="user-dropdown-menu" id="userDropdown">
+                <div class="dropdown-header">
+                    <div class="dropdown-avatar-large">👤</div>
+                    <div class="dropdown-user-details">
+                        <strong>{{ user.get_full_name|default:user.username }}</strong>
+                        <span class="user-email">{{ user.email|default:"Chưa cập nhật email" }}</span>
+                    </div>
+                </div>
+                
+                <div class="dropdown-divider"></div>
+                
+                <div class="dropdown-info-list">
+                    <div class="info-item">
+                        <span class="info-icon">👑</span>
+                        <div class="info-text">
+                            <span class="info-label">Vai trò</span>
+                            <span class="info-value">{% if user.is_superuser %}Admin Hệ Thống{% else %}Học viên{% endif %}</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">⭐</span>
+                        <div class="info-text">
+                            <span class="info-label">Trình độ hiện tại</span>
+                            
+                            <span class="info-badge" id="nav-user-level">
+                                {% if user.learning_profile.level == 1 %}Beginner
+                                {% elif user.learning_profile.level == 2 %}Intermediate
+                                {% elif user.learning_profile.level == 3 %}Advanced
+                                {% else %}Beginner
+                                {% endif %}
+                            </span> 
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dropdown-divider"></div>
+                
+                <form action="{% url 'logout' %}" method="post" class="dropdown-logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="dropdown-item logout-btn">
+                        <span class="item-icon">🚪</span> Đăng xuất tài khoản
+                    </button>
+                </form>
+            </div>
+        </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="nav-link">Đăng nhập</a>
+                 {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 <strong>LearnApp</strong>. Built with 💙 for your future.</p>
+            
+            {% if not user.is_authenticated %}
+            <span class="footer-login-msg">Vui lòng <a href="{% url 'login' %}">Đăng nhập</a> để bắt đầu hành trình của bạn.</span>
+            {% endif %}
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends "learning/layout.html" %}
+{% load static %}
+
+{% block title %}Tham gia LearnApp - Đăng ký{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="login-box">
+        <div class="auth-header">
+            <div class="auth-emoji">🚀</div>
+            <h2>Tham gia LearnApp</h2>
+            <p>Bắt đầu hành trình chinh phục tiếng Anh cá nhân hóa ngay hôm nay!</p>
+        </div>
+
+        <form method="post" class="styled-form">
+            {% csrf_token %}
+            
+            <div class="form-fields-wrapper">
+                {{ form.as_p }}
+            </div>
+
+            <button type="submit" class="btn btn-auth-submit">Sẵn sàng bắt đầu</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Đã là thành viên? <a href="{% url 'login' %}" class="auth-link">Đăng nhập ngay</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "learning/layout.html" %}
+{% load static %}
+
+{% block title %}Luyện tập - LearnApp{% endblock %}
+
+{% block content %}
+<div class="container-wide">
+  {% if user.is_authenticated %}
+    
+    <div class="welcome-header">
+        <h2>Lộ trình học tập</h2>
+        <p>Chào mừng, <strong>{{ user.username }}</strong>! Hãy chọn chế độ học hôm nay.</p>
+    </div>
+
+    <div class="learning-options">
+        <a href="{% url 'learning:curriculum' %}" class="option-card">
+            <div class="icon">🎓</div>
+            <h3>Chương trình bài bản</h3>
+            <p>Học theo giáo trình từ cơ bản đến nâng cao.</p>
+            <span class="btn btn-primary">Vào học ngay</span>
+        </a>
+
+        <div id="practice-card" class="option-card">
+            <div class="icon">🎯</div>
+            <h3>Ôn tập & Kiểm tra</h3>
+            <p>Dò thử trình độ và luyện tập các câu hỏi ngẫu nhiên.</p>
+            <button id="load-question-btn" class="btn btn-primary">Bắt đầu ngay</button>
+        </div>
+    </div>
+
+    <div id="question-box" class="card question-box">
+        
+        <div class="learning-modes">
+            <button id="mode-grammar" class="btn-mode active" onclick="switchMode('grammar')">
+                📝 Luyện Ngữ Pháp
+            </button>
+            <button id="mode-listening" class="btn-mode" onclick="switchMode('listening')">
+                🎧 Luyện Nghe TOEIC
+            </button>
+        </div>
+
+        <div class="ai-container">
+            
+            <div class="question-panel">
+                <h3 class="question-title">
+                    Câu hỏi <span id="q-level"></span>
+                </h3>
+                
+                <p id="q-text"></p>
+                
+                <div id="options"></div>
+                
+                <div id="actions" class="actions">
+                    <button id="submit-answer-btn" class="btn full-btn">Nộp bài</button>
+                    <button id="next-question-btn" class="btn next-btn">Câu tiếp theo →</button>
+                </div>
+
+                <div id="feedback"></div>
+            </div>
+
+            <div class="ai-support-panel">
+                <h4>🤖 Trợ lý AI</h4>
+                
+                <div class="ai-chat-messages" id="ai-chat"></div>
+                
+                <div class="ai-buttons">
+                    <button class="btn btn-secondary" id="get-explanation-btn">📚 Giải thích</button>
+                    <button class="btn btn-warning" id="get-hint-btn">💡 Gợi ý</button>
+                </div>
+                
+                <div class="ai-input-row">
+                    <input type="text" id="ai-input" placeholder="Hỏi AI...">
+                    <button class="btn" id="ask-ai-btn">Gửi</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+  {% else %}
+    <div class="login-prompt">
+        <div class="lock-icon">🔒</div>
+        <h2>Khu vực dành riêng cho học viên</h2>
+        <p>Vui lòng đăng nhập để truy cập kho câu hỏi và trợ lý AI.</p>
+        <a href="{% url 'login' %}" class="btn btn-primary">Đăng nhập ngay</a>
+    </div>
+  {% endif %}
+</div>
+
+<script src="{% static 'learning/js/app.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My App{% endblock %}</title>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <link rel="stylesheet" href="{% static 'learning/css/style.css' %}">
+</head>
+<div class="question-block" id="question-{{ question.id }}">
+    <div class="question-header">
+        <h3>Câu {{ question.order }}:</h3>
+        <p class="question-text">{{ question.text }}</p>
+
+        {% if question.image %}
+        <img src="{{ question.image.url }}" alt="Question Image" class="question-image"/>
+        {% endif %}
+    </div>
+
+    <form class="answer-form" method="post" 
+          hx-post="{% url 'submit_answer' question.id %}"
+          hx-target="#question-{{ question.id }}"
+          hx-swap="outerHTML">
+        {% csrf_token %}
+
+        <div class="choices">
+            {% for choice in question.choices.all %}
+            <label class="choice-item">
+                <input type="radio"
+                       name="answer"
+                       value="{{ choice.id }}"
+                       {% if user_answer and user_answer.choice.id == choice.id %}checked{% endif %}>
+                <span class="choice-text">{{ choice.text }}</span>
+            </label>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="submit-btn">Xác nhận</button>
+    </form>
+
+    {% if user_answer %}
+    <div class="answer-result">
+        {% if user_answer.is_correct %}
+            <p class="correct">✔ Chính xác!</p>
+        {% else %}
+            <p class="incorrect">✘ Sai rồi!</p>
+            <p class="correct-answer">
+                Đáp án đúng: {{ question.correct_choice.text }}
+            </p>
+        {% endif %}
+
+        <p class="explanation">{{ question.explanation }}</p>
+    </div>
+    {% endif %}
+</div>

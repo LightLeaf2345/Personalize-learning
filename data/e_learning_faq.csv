@@ -1,0 +1,9 @@
+Question (Người học hỏi);Answer (Quản gia phản hồi)
+Làm sao để nâng level?;Bạn có thể nâng level bằng cách hoàn thành tốt các bài tập Ngữ pháp và Nghe. Nếu bạn thấy bài tập hiện tại quá dễ, hãy nói "Bài này dễ quá" để mình nâng trình độ lên nhé!
+Tôi muốn xem lộ trình học của mình;Bạn chỉ cần yêu cầu "Cho tôi xem lộ trình", mình sẽ kiểm tra dữ liệu từ SQL Server và hiển thị danh sách bài học phù hợp với trình độ của bạn.
+Làm sao để luyện nghe?;Bạn hãy bảo mình là "Tôi muốn luyện nghe", mình sẽ lấy ngẫu nhiên các bài nghe từ kho dữ liệu tương ứng với Level hiện tại của bạn.
+Hệ thống có những khóa học nào?;LEARNAPP có các khóa học từ cơ bản đến nâng cao. Bạn có thể hỏi "Tư vấn khóa học" để Chuyên gia của mình tìm những khóa phù hợp nhất với bạn trong file e_map.
+Tôi bị yếu phần nghe thì làm sao?;Đừng lo nhé! Mình sẽ chủ động đề xuất các bài tập Listening nhiều hơn trong phần lộ trình để giúp bạn cải thiện điểm yếu này.
+Làm thế nào để học ngữ pháp?;Bạn hãy yêu cầu "Luyện ngữ pháp", mình sẽ gửi cho bạn các câu hỏi trắc nghiệm kèm giải thích chi tiết để bạn nắm vững kiến thức.
+Hệ thống lấy dữ liệu từ đâu?;LEARNAPP kết nối trực tiếp với SQL Server để quản lý tiến độ của bạn và dùng công nghệ AI Gemini để tư vấn học tập cá nhân hóa.
+Tại sao tôi không thấy bài tập mới?;Có thể bạn đã hoàn thành hết bài tập ở Level hiện tại. Hãy thử yêu cầu mình nâng Level để thử sức với những kiến thức khó hơn nhé!

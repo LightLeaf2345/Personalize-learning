@@ -1,0 +1,958 @@
+/* ==========================================================================
+   1. GLOBAL & BASE STYLES
+   ========================================================================== */
+body { 
+    font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif; 
+    margin: 0;
+    color: #1c1e21; 
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+    /* GOM TỪ LAYOUT.HTML SANG ĐÂY */
+    background-image: url('../../../img/487445774_122165987096288299_4482786129229091044_n.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+    background-color: #f8fafc; /* Màu nền dự phòng */
+}
+
+a { 
+    color: #007bff; 
+    text-decoration: none; 
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+a:hover { 
+    color: #0056b3; 
+    text-decoration: underline; 
+}
+
+/* ==========================================================================
+   2. LAYOUT & CONTAINERS
+   ========================================================================== */
+.main-content {
+    flex: 1; /* Đẩy footer xuống đáy trang */
+}
+
+/* Container mặc định cho các trang nhỏ như Login, Profile */
+.container, .content {
+    max-width: 650px; 
+    margin: 40px auto; 
+    padding: 30px;
+    background: #ffffff; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* Container RỘNG dành riêng cho trang Giáo trình (Curriculum) */
+.container-wide {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* ==========================================================================
+   3. REUSABLE COMPONENTS (Buttons, Cards, Badges)
+   ========================================================================== */
+.card, .box, .panel {
+    background: #ffffff; 
+    padding: 20px; 
+    border-radius: 15px; 
+    border: 1px solid #eef0f2;
+    margin-top: 20px;
+}
+
+/* Nút bấm tổng thể */
+.btn, button {
+    padding: 12px 24px; 
+    border: none; 
+    background: linear-gradient(135deg, #0062ff 0%, #00a2ff 100%); 
+    color: #ffffff; 
+    border-radius: 12px; 
+    cursor: pointer; 
+    font-size: 15px;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 12px rgba(0, 98, 255, 0.2);
+}
+
+.btn:hover, button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 98, 255, 0.3);
+}
+
+/* Nhãn độ khó (Badges) */
+.badge {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    width: fit-content;
+}
+.badge.beginner { background: #e3fcef; color: #00875a; }
+.badge.intermediate { background: #fff7e6; color: #ff9900; }
+.badge.advanced { background: #ffebe6; color: #de350b; }
+
+/* ==========================================================================
+   4. NAVBAR PREMIUM
+   ========================================================================== */
+.navbar {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px); /* Hiệu ứng kính mờ trendy */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1a1a1a;
+    text-decoration: none;
+    letter-spacing: -1px;
+}
+.logo span { color: #0062ff; }
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-link {
+    font-weight: 600;
+    font-size: 14px;
+    color: #4b5563;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.nav-link:hover { color: #0062ff; }
+
+/* Các nút trên Navbar */
+.btn-signup-pill {
+    background: #0062ff;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.btn-signup-pill:hover {
+    background: #0056e0;
+    box-shadow: 0 8px 20px rgba(0, 98, 255, 0.2);
+}
+
+.btn-logout-pill {
+    background: #f1f5f9;
+    color: #ef4444;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: 0.2s;
+}
+.btn-logout-pill:hover { background: #fee2e2; }
+
+/* ==========================================================================
+   5. USER & HAMBURGER MENUS
+   ========================================================================== */
+.user-menu-container, .hamburger-menu-container {
+    position: relative;
+}
+
+/* Nút User Profile */
+.user-profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid #eef0f2;
+    padding: 6px 12px 6px 6px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: none;
+}
+.user-profile-btn:hover { background: #f8f9fa; border-color: #d1d5db; transform: translateY(0); }
+
+.user-avatar {
+    background: #eef2ff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+.user-name { font-size: 14px; font-weight: 600; color: #374151; }
+.dropdown-icon { color: #6b7280; }
+
+/* Nút Hamburger */
+.hamburger-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #1a1a1a;
+    padding: 8px;
+    border-radius: 10px;
+    transition: background 0.2s ease, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+}
+.hamburger-btn:hover { background: #f0f2f5; transform: scale(1.05); }
+
+/* Khung Dropdown dùng chung cho User & Hamburger */
+.user-dropdown-menu, .hamburger-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 280px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.05);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 3000;
+}
+
+.user-dropdown-menu.show, .hamburger-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Nội dung Dropdown */
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+}
+
+.dropdown-avatar-large {
+    background: #e7f1ff;
+    color: #0062ff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.dropdown-user-details { display: flex; flex-direction: column; }
+.dropdown-user-details strong { font-size: 16px; color: #1a1a1a; }
+.user-email { font-size: 13px; color: #6b7280; font-weight: 500; margin-top: 2px; }
+
+.dropdown-divider {
+    height: 1px;
+    background: #f3f4f6;
+    margin: 0;
+}
+.hamburger-dropdown .dropdown-divider { margin: 8px 0; }
+
+/* List thông tin (Role, Level) */
+.dropdown-info-list { padding: 15px 20px; }
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.info-item:last-child { margin-bottom: 0; }
+
+.info-icon {
+    font-size: 20px;
+    background: #f8fafc;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.info-text { display: flex; flex-direction: column; }
+.info-label { font-size: 12px; color: #9ca3af; font-weight: 600; text-transform: uppercase;}
+.info-value { font-size: 14px; font-weight: 700; color: #374151; }
+
+.info-badge {
+    background: #dcfce7;
+    color: #166534;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    width: fit-content;
+}
+
+/* Các Items chức năng trong Dropdown */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+    padding: 12px 25px;
+    background: transparent;
+    border: none;
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, padding-left 0.2s;
+    box-shadow: none;
+}
+
+.dropdown-item:hover {
+    background: #f8fafc;
+    color: #0062ff;
+    padding-left: 30px;
+}
+
+.dropdown-item.logout-btn {
+    color: #dc2626;
+    border-radius: 0 0 20px 20px;
+    padding: 15px 20px;
+}
+.dropdown-item.logout-btn:hover {
+    background: #fef2f2;
+    padding-left: 20px; /* Bỏ thụt lề cho nút logout */
+}
+
+/* ==========================================================================
+   6. AUTHENTICATION (Login, Signup)
+   ========================================================================== */
+.auth-container {
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    max-width: 450px !important;
+    background: #ffffff;
+    padding: 50px 40px !important;
+    border-radius: 30px !important;
+    box-shadow: 0 20px 60px rgba(0, 98, 255, 0.08) !important;
+    border: 1px solid rgba(0, 98, 255, 0.05) !important;
+}
+
+.auth-header { margin-bottom: 35px; text-align: center; }
+
+.auth-emoji {
+    font-size: 45px;
+    margin-bottom: 15px;
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.auth-header h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+.auth-header p {
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Khung Input Form */
+.form-fields-wrapper p { margin-bottom: 20px; text-align: left; }
+
+.form-fields-wrapper label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #4b5563;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-fields-wrapper input {
+    width: 100%;
+    height: 52px !important;
+    border: 2px solid #f3f4f6 !important;
+    background: #f9fafb !important;
+    font-weight: 500;
+    border-radius: 12px;
+    padding: 0 15px;
+    transition: all 0.3s ease !important;
+    box-sizing: border-box;
+}
+
+.form-fields-wrapper input:focus {
+    background: #ffffff !important;
+    border-color: #007bff !important;
+    box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.1) !important;
+    outline: none;
+}
+
+.btn-auth-submit {
+    width: 100%;
+    height: 55px;
+    font-size: 16px !important;
+    margin-top: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.auth-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #f3f4f6;
+    text-align: center;
+}
+
+.auth-link { color: #0062ff; font-weight: 700; }
+.auth-link:hover { text-decoration: underline; }
+
+/* ==========================================================================
+   7. LEARNING & CURRICULUM (Trang Chủ, Giáo Trình)
+   ========================================================================== */
+.learning-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.option-card {
+    background: #ffffff;
+    padding: 40px 20px;
+    border-radius: 24px;
+    border: 1px solid #eef0f2;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none !important;
+    color: #1a1a1a !important; 
+    cursor: pointer; /* THÊM DÒNG NÀY ĐỂ HIỆN BÀN TAY KHI DI CHUỘT VÀO KHỐI */
+}
+
+.option-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,98,255,0.1);
+    border-color: #007bff;
+    text-decoration: none !important;
+    color: #000000 !important;
+}
+
+.option-card:hover .btn {
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+.option-card:hover h3, 
+.option-card:hover p {
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+.curriculum-container {
+    display: flex !important;
+    gap: 30px;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.lesson-sidebar {
+    flex: 0 0 350px !important; /* Sidebar rộng hơn một chút */
+    position: sticky;
+    top: 100px;
+}
+
+.sidebar-title {
+    margin-bottom: 20px;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+/* THIẾT KẾ TỪNG MỤC BÀI HỌC THÀNH KHỐI RIÊNG */
+.lesson-item {
+    background: #ffffff;
+    padding: 18px;
+    margin-bottom: 15px; /* Tách riêng từng khối */
+    border-radius: 16px;
+    border: 1px solid #eef0f2;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+/* HIỆU ỨNG SÁNG LÊN KHI HOVER */
+.lesson-item:not(.locked):hover {
+    transform: translateY(-3px);
+    border-color: #0062ff;
+    background: #ffffff;
+    /* Hiệu ứng đổ bóng sáng rực rỡ */
+    box-shadow: 0 10px 25px rgba(0, 98, 255, 0.15); 
+}
+
+/* Trạng thái bài học đang được xem */
+.lesson-item.active {
+    background: #eef5ff;
+    border-color: #0062ff;
+    border-left: 5px solid #0062ff;
+}
+
+.lesson-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lesson-title {
+    font-size: 15px;
+    color: #374151;
+}
+
+/* CỘT NỘI DUNG BÊN PHẢI */
+.lesson-main-view {
+    flex: 1 !important;
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    min-height: 700px;
+    border: 1px solid #eef0f2;
+}
+
+.placeholder-content {
+    text-align: center;
+    padding-top: 150px;
+    color: #9ca3af;
+}
+
+.placeholder-icon {
+    font-size: 64px;
+    margin-bottom: 15px;
+}
+
+.lesson-content-divider {
+    height: 1px;
+    background: #f3f4f6;
+    margin: 25px 0;
+}
+
+/* Hiệu ứng hiện nội dung mượt mà */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.lesson-main-view {
+    flex: 1 !important;
+    background: #ffffff;
+    border-radius: 30px; /* Bo góc tròn hơn */
+    padding: 50px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.04);
+    min-height: 700px;
+    border: 1px solid #f1f5f9;
+}
+
+/* Tiêu đề bài học chính */
+#active-lesson-title {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1e293b 0%, #0062ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 30px;
+}
+
+/* Các thành phần nội dung bên trong (Lesson Pro) */
+.lesson-pro {
+    animation: fadeInUp 0.5s ease-out; /* Kích hoạt hiệu ứng hiện lên */
+}
+
+/* Khung giới thiệu bài học */
+.lesson-intro {
+    background: #f8faff;
+    border-left: 6px solid #0062ff;
+    padding: 25px;
+    border-radius: 0 20px 20px 0;
+    margin-bottom: 40px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: #475569;
+}
+
+/* Khung công thức (Vivid Version) */
+.formula-box {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #e2e8f0;
+    padding: 30px;
+    border-radius: 20px;
+    margin: 30px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.formula-box::before {
+    content: "FORMULA";
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 10px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 2px;
+}
+
+.formula-box b { color: #38bdf8; font-family: 'Consolas', monospace; }
+
+/* Bảng ngữ pháp chuyên nghiệp */
+.grammar-table {
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #e2e8f0;
+    margin: 30px 0;
+}
+
+.grammar-table th {
+    background: #f8fafc;
+    color: #1e293b;
+    font-weight: 700;
+    padding: 18px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.grammar-table td {
+    padding: 18px;
+    background: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.grammar-table tr:hover td {
+    background: #fdfdfd; /* Highlight nhẹ khi rê chuột qua hàng */
+}
+
+/* Hộp thông tin (Tip/Lưu ý) */
+.alert-box {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 16px;
+    margin: 25px 0;
+}
+
+.alert-box.tip { 
+    background: #ecfdf5; 
+    border: 1px solid #a7f3d0;
+    color: #065f46;
+}
+
+.alert-box.tip::before { content: "💡"; font-size: 20px; }
+
+/* Sidebar Bài học bên trái */
+.lesson-item {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.lesson-item:not(.locked):hover {
+    background: #ffffff !important;
+    border-color: #0062ff !important;
+    transform: translateX(10px) scale(1.02) !important; /* Nhô ra và phóng to nhẹ */
+    box-shadow: 0 15px 30px rgba(0, 98, 255, 0.12) !important;
+}
+/* ==========================================================================
+   8. PRACTICE AREA & AI SUPPORT (Luyện Tập)
+   ========================================================================== */
+.opt {
+    display: block;
+    width: 100%;
+    margin: 12px 0;
+    padding: 14px 20px; 
+    border-radius: 12px; 
+    border: 2px solid #edeff2; 
+    background: #ffffff; 
+    cursor: pointer; 
+    transition: all 0.2s; 
+    text-align: left;
+    color: #1a1a1a; 
+    box-shadow: none;
+}
+.opt:hover { background: #f0f7ff; border-color: #007bff; transform: translateY(0); }
+.opt.sel { background: #e7f1ff; border-color: #007bff; font-weight: 600; }
+
+.correct-highlight { background: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+.incorrect-highlight { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+
+/* Khung Trợ giảng AI */
+.ai-support-panel {
+    flex: 0 0 350px;
+    background: #f8f9ff;
+    border: 1px solid #e0e0ff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.ai-message {
+    margin: 10px 0; 
+    padding: 12px; 
+    border-radius: 12px; 
+    font-size: 14px;
+}
+.ai-message.user { background: #667eea; color: white; text-align: right; }
+.ai-message.assistant { background: white; border: 1px solid #ddd; }
+
+/* ==========================================================================
+   9. FOOTER
+   ========================================================================== */
+.footer {
+    padding: 40px 0;
+    background: #ffffff;
+    border-top: 1px solid #f1f5f9;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer p {
+    margin: 5px 0;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.footer-login-msg {
+    font-size: 0.8rem;
+    color: #777;
+    display: block;
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   10. RESPONSIVE (MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .curriculum-container, .ai-container { flex-direction: column; }
+    .lesson-sidebar, .ai-support-panel { flex: 1 1 auto; width: 100%; position: static; }
+    .learning-options { grid-template-columns: 1fr; }
+}
+
+/* ========== CHỌN CHẾ ĐỘ HỌC ========== */
+.btn-mode {
+    padding: 12px 25px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    color: #64748b;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: none;
+}
+
+.btn-mode:hover {
+    background: #f1f5f9;
+    transform: translateY(-2px);
+}
+
+.btn-mode.active {
+    background: #e0f2fe;
+    border-color: #0ea5e9;
+    color: #0284c7;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2);
+}
+
+/* Custom dáng vẻ của Audio Player cho hiện đại */
+audio {
+    width: 100%;
+    height: 45px;
+    outline: none;
+    border-radius: 50px;
+    background-color: #f1f3f4;
+}
+audio::-webkit-media-controls-panel {
+    background-color: #f8fafc;
+}
+
+/* ===== INDEX PAGE CLEAN STYLES ===== */
+
+.welcome-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+.welcome-header h2 {
+    font-size: 32px;
+    color: #1a1a1a;
+}
+.welcome-header p {
+    color: #6b7280;
+}
+
+.icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+/* Question Box */
+.question-box {
+    display: none;
+    margin-top: 40px;
+    padding: 40px;
+    border-radius: 24px;
+}
+
+/* Modes */
+.learning-modes {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    justify-content: center;
+    border-bottom: 2px dashed #e2e8f0;
+}
+
+/* Layout */
+.ai-container {
+    display: flex;
+    gap: 30px;
+}
+
+/* Question */
+.question-panel {
+    flex: 1;
+}
+
+.question-title {
+    color: #0062ff;
+    margin-top: 0;
+    font-size: 22px;
+}
+
+#q-level {
+    font-size: 14px;
+    color: #6b7280;
+    padding-left: 10px;
+}
+
+#q-text {
+    font-size: 17px;
+    font-weight: 500;
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+/* Buttons */
+.actions {
+    margin-top: 30px;
+}
+
+.full-btn {
+    width: 100%;
+    padding: 15px;
+}
+
+.next-btn {
+    display: none;
+    width: 100%;
+    padding: 15px;
+    background: #28a745;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+}
+
+/* AI */
+.ai-chat-messages {
+    height: 350px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding-right: 10px;
+}
+
+.ai-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.btn-secondary {
+    background: #64748b;
+}
+
+.btn-warning {
+    background: #f59e0b;
+}
+
+.ai-input-row {
+    display: flex;
+    gap: 8px;
+}
+
+.ai-input-row input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 2px solid #eef0f2;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+}
+
+/* Login */
+.login-prompt {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.lock-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
